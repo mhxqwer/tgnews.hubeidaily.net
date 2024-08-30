@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <link rel="icon" type="image/x-icon" href="/r/cms/www/default/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="static/css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="static/css/detail.css">
+    <script type="text/javascript" src="static/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="static/js/swiper-3.4.2.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="static/js/vue.min.js"></script>
+    <title>这场音乐节，出圈的“地气”和“底气”! - 湖北日报新闻客户端</title>
+</head>
+<body>
+<div class="header">
+    <input type="hidden" id="hidChannelId" value="1636" />
+    <input type="hidden" id="hidChannelFromId" value="1636" />
+    <input type="hidden" id="hidChannelName" value="秭归" />
+    <input type="hidden" id="hidFullSearch" value="/pc/fullsearch.html" />
+    <input type="hidden" id="hidVideoChannel" data-url="/pc/video.html" value="视频" />
+    <input type="hidden" id="hidVideoChannelId" data-url="/pc/video.html" value="5" />
+    <input type="hidden" id="hidSelfMediaChannel" data-url="/pc/selfmedia.html" value="湖北号" />
+    <input type="hidden" id="hidSelfMediaChannelId" data-url="/pc/selfmedia.html" value="3" />
+    <input type="hidden" id="hidFromNewsId" value="2352653" />
+    <input type="hidden" id="hidFromNewsContentId" value="2116796" />
+    <input type="hidden" id="hidContentType" value="5">
+    <input type="hidden" id="hidContentTitle" value="这场音乐节，出圈的“地气”和“底气”!">
+    <input type="hidden" id="hidContentKeyword" value="">
+    <input type="hidden" id="hidMemberId" value="4104">
+    <input type="hidden" id="hidNickName" value="秭归融媒体中心">
+    <input type="hidden" id="hidCreateTime" value='2024-03-12 15:35:04'>
+    <input type="hidden" id="hidReleaseTime" value='2024-03-12 15:35:47'>
+    <input type="hidden" id="hidContentSubjectId" value="0" />
+    <input type="hidden" id="hidContentColumnId" value="0" />
+    <input type="hidden" id="hidContentMediaId" value="0" />
+    <div id="header">
+        <div class="header-w">
+            <div class="head-logo">
+                <a href="/" title="湖北日报新闻客户端">
+                    <img src="static/picture/logo.png">
+                </a>
+            </div>
+            <div class="head-nav" id="head-nav"></div>
+            <div class="head-info">
+                <a id="registerBtn" href="javascript:;" onclick="showRegist()">注册</a>
+                <a id="loginBtn" href="javascript:;" style="border: none;" onclick="showLogin()">登录</a>
+                <a class="myCollect" data-id="myHistory" href="/pc/mycollect.html" target="_blank">历史</a>
+                <a class="myCollect" data-id="myCollect" href="/pc/mycollect.html" target="_blank">收藏</a>
+                <a id="btnLogout" href="javascript:;"  style="display: none;border: none;">注销</a>
+                <div id="memberInfoDiv" style="display: none;float: right;height: 30px;line-height: 15px;padding-top: 5px;"></div>
+                <div class="search-box">
+                    <div class="search-form" id="searchForm">
+                        <input type="button" id="searchBtn" class="search-btn">
+                        <input type="text" id="searchKey" class="search-key">
+                    </div>
+                    <div class="search-icon" onclick="showSearch(this)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="channel-box" id="channelArea">
+    <div class="arrow-box">
+        <div class="arrow-up"></div>
+    </div>
+    <div class="channel-list-box">
+        <ul class="channel-list clearfix" id="channelAreaList"></ul>
+    </div>
+</div>
+
+<div class="bg-mask" id="mask"></div>
+<!-- 登录-->
+<div class="user-dialog" id="userDialog">
+    <div class="title">
+        <span class="title-con">登录</span>
+        <span class="d-close" onclick="hideUserDialog()"></span>
+    </div>
+    <div class="content">
+        <div class="login-form">
+            <div class="phone-box">
+                <input type="text" id="phone" name="phone" class="phone" placeholder="请输入手机号">
+                <button class="send-code" id="sendCode" onclick="sendCode()">获取验证码</button>
+            </div>
+            <div class="imgcode-box">
+                <input type="text" id="imgCode" name="code" class="imgcode" placeholder="请输入图片验证码">
+                <img id="verifyCodeImage" class="code-img" onclick="refreshVerifyCodeImage()">
+            </div>
+            <div class="verifycode-box">
+                <input type="text" id="verifyCode" name="code" class="verifycode" placeholder="请输入短信验证码">
+            </div>
+            <div class="operate-btns clearfix">
+                <div class="to-regist">没有账户，请先<span onclick="switchRegist()">注册</span></div>
+                <div class="to-login">已有账户，马上<span onclick="switchLogin()">登录</span></div>
+            </div>
+            <div class="login-btn" onclick="submitLogin()">登 录</div>
+        </div>
+        <div class="third-part">
+            <div class="third-title">第三方登录</div>
+            <div class="third-list">
+                <ul class="clearfix">
+                    <li class="third-item">
+                        <a href="javascript:;" class="wechat"></a>
+                    </li>
+                    <li class="third-item">
+                        <a href="javascript:;" class="qq"></a>
+                    </li>
+                    <li class="third-item">
+                        <a href="javascript:;" class="weibo"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main">
+    <div class="clearfix">
+        <div class="main-left">
+            <div class="news-detail-container">
+                <div class="news-title" id="news-title">这场音乐节，出圈的“地气”和“底气”!</div>
+                <div class="we-media" id="we-media" style="display: none"></div>
+                <div class="news-detail-box">
+                    <div class="source">
+                        <span>湖北日报客户端</span>
+                        <span class="source-item">2024-03-12 15:35:47</span>
+                    </div>
+                    <div class="detail-cont">
+                        <section data-role="outer" label="Powered by 135editor.com" style="font-family:微软雅黑;font-size:16px;"><section data-role="outer" label="edit by 135editor" style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; color: rgba(0, 0, 0, 0.9); font-size: 17px;     letter-spacing: 0.544px;  text-align: justify;       background-color: rgb(255, 255, 255); text-decoration-thickness: initial;  ;font-family: system-ui, -apple-system, BlinkMacSystemFont, &quot;Helvetica Neue&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, Arial, sans-serif;"><section data-role="paragraph" style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">3月8日至10日，“乐莫乐兮”新春文化活动季橙子音乐节如约而至。乐迷们从全国各地蜂拥而来，相约秭归县木鱼岛天问公园，共赴一场音乐盛宴。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><section data-role="title" data-tools="135编辑器" data-id="137604" style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;" class="_135editor"><section style="margin: 10px auto; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; display: flex; justify-content: center;"><section style="margin: 0px -3px 0px 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; flex-shrink: 0; display: flex; align-items: center;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; overflow-wrap: break-word !important; width: 15px;box-sizing:border-box;"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 35.83 70" style="display: block;" xml:space="default"><g data-name="图层 2"><g data-name="图层 1"><path d="M0,35,35.83,0,13.93,35.19,35.83,70Z" style="fill:#3bb3e8;fill-rule:evenodd;"></path></g></g></svg></section></section><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; display: flex; justify-content: center;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; flex-shrink: 0; display: flex; align-items: center;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; overflow-wrap: break-word !important; width: 0px; height: 1px; border-right: 11px solid rgb(31, 92, 193); border-top: 16px solid transparent; border-bottom: 16px solid transparent; overflow: hidden;box-sizing:border-box;"><br style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"/></section></section><section style="margin: 0px; padding: 0px 10px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; background-color: rgb(31, 92, 193); line-height: 33px;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 16px; color: rgb(255, 255, 255); text-align: center;"><strong data-brushtype="text" style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">3个专场</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">万千乐迷同频欢唱</span></p></strong></section></section><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; flex-shrink: 0; display: flex; align-items: center;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; overflow-wrap: break-word !important; width: 0px; height: 1px; border-left: 11px solid rgb(31, 92, 193); border-top: 16px solid transparent; border-bottom: 16px solid transparent; overflow: hidden;box-sizing:border-box;"><br style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"/></section></section></section><section style="margin: 0px 0px 0px -3px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; flex-shrink: 0; display: flex; align-items: center;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; overflow-wrap: break-word !important; width: 15px;box-sizing:border-box;"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 35.83 70" style="display: block;transform:  rotateY(180deg);-webkit-transform:  rotateY(180deg);-moz-transform:  rotateY(180deg);-o-transform:  rotateY(180deg);" xml:space="default"><g data-name="图层 2"><g data-name="图层 1"><path d="M0,35,35.83,0,13.93,35.19,35.83,70Z" style="fill:#3bb3e8;fill-rule:evenodd;"></path></g></g></svg></section></section></section></section><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">这3天里，动感、怀旧、少儿三场主题音乐节轮番上阵。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">3月8日傍晚，音乐节表演伴随着阵阵欢呼声炫酷开场，活力四射的说唱、打碟，瞬间调动起在场观众全身的“<span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px; letter-spacing: 0.578px;">音乐分</span><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px; letter-spacing: 0.578px;">子</span>”。首场“活力之城 动感新春”演出，邀请到Eclipse Echoes、撞克Drunk乐队、马格南乐队以及秭归本土邓正伟等新锐歌手，现场带来一首首流行金曲。唢呐、电子琴声张狂，电吉他激昂，现场音浪一阵高过一阵。</span></p><p style="text-align: center;"><span class="video_origin_span" style="text-align: center;position:relative;display:inline-block;padding:0 2px;margin:0 3px;"><span class="upload_state" style="display:inline-block;position:absolute;width:281px;height:26px;line-height:26px;bottom:0;left:50%;transform:translateX(-50%);z-index:1;text-align:center;"><span class="upload_progress" style="display:inline-block;position:absolute;width:0;height:26px;top:0;left:0;background:blue;z-index:0;"></span></span></span></p><p><video class="edui-faked-video video-js" resourceid="102638" controls="" preload="none" width="100%" height="" poster="http://hbrbapp.hubeidaily.net/38837379-8c10-4c70-a8df-afaa5dc9dc79.jpeg-w800" src="http://hbrbapp.hubeidaily.net/020d0587-200c-4525-97c3-1294c86f2d78_2024-03-12.mp4" data-setup="{}"><source src="http://hbrbapp.hubeidaily.net/020d0587-200c-4525-97c3-1294c86f2d78_2024-03-12.mp4" type="video/mp4?format=mp4"/></video><br/></p><p style="text-align: center;"><span class="video_origin_span" style="text-align: center;position:relative;display:inline-block;padding:0 2px;margin:0 3px;"><span class="upload_state" style="display:inline-block;position:absolute;width:281px;height:26px;line-height:26px;bottom:0;left:50%;transform:translateX(-50%);z-index:1;text-align:center;"><span class="upload_progress" style="display:inline-block;position:absolute;width:0;height:26px;top:0;left:0;background:blue;z-index:0;"></span><span class="upload_percent" style="color:#fff;position:relative;z-index:0;">0%</span></span><span class="opera_origin_video" style="display:inline-block;position:absolute;width:281px;height:100%;line-height: 31px;top:0;left:50%;transform:translateX(-50%);z-index:3;text-align:right;"><span class="video_origin_name" style="float:left;width:150px;height:20px;line-height:20px;color:#fff;text-align:left;font-size:12px;margin:5px 0 0 5px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"></span></span></span><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">3月9日第二场“怀旧经典 岁月之歌”<span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px; letter-spacing: 0.578px;">专场</span>，在《红日》的歌声中拉开序幕，表演嘉宾：谭歌（谭小宝）内地女歌手，带着代表作《你为了那个女人抛弃了我》《是否把我忘记》《别怕》率先开唱。《海阔天空》的歌声在现场响起的瞬间，属于“60后”“70后”“80后”的记忆又再次激活。30首耳熟能详的经典老歌，引来全场“<span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px; letter-spacing: 0.578px;">大合唱</span>”。</span></p><p><video class="edui-faked-video video-js" resourceid="102205" controls="" preload="none" width="100%" height="" poster="http://hbrbapp.hubeidaily.net/7e2f2435-c050-4af2-bf6c-43a9dac390aa.jpeg-w800" src="http://hbrbapp.hubeidaily.net/e20d81c3-815f-4ac8-bbb9-3a8aa9fed4cc_2024-03-11.mp4?format=mp4" data-setup="{}"><source src="http://hbrbapp.hubeidaily.net/e20d81c3-815f-4ac8-bbb9-3a8aa9fed4cc_2024-03-11.mp4?format=mp4" type="video/mp4?format=mp4"/></video></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">最后一场“唱响秭归 萌娃迎春”<span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px; letter-spacing: 0.578px;">专</span><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px; letter-spacing: 0.578px;">场</span>，街舞、音乐剧、表演唱、朗诵、武术……一群小演员纷纷欢歌起舞，节目新奇而又灵动。</span></p><p><video class="edui-faked-video video-js" resourceid="102208" controls="" preload="none" width="100%" height="" poster="http://hbrbapp.hubeidaily.net/93f86e00-dc17-4205-96ee-6fdfface578a?imageView2/2/w/360" src="http://hbrbapp.hubeidaily.net/cd2ff0c7-0c3e-4285-90b2-ab02c4851667_2024-03-11.mp4?format=mp4" data-setup="{}"><source src="http://hbrbapp.hubeidaily.net/cd2ff0c7-0c3e-4285-90b2-ab02c4851667_2024-03-11.mp4?format=mp4" type="video/mp4?format=mp4"/></video><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">台上霓虹闪烁，台下人潮涌动，歌声、掌声、欢呼声让微风凉凉的夜迸发出似火热情。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: center;" align="center"><img class="rich_pages wxw-img __bg_gif" data-backh="315" data-backw="560" data-galleryid="" data-imgfileid="504684015" data-type="gif" data-original-style="width: 100%;height: auto;" data-index="0" src="static/picture/a9fb1d8f0c174bc092f2e056c7f236fe.gif" _width="100%" __sec_open_place_holder__="true" data-order="1" alt="图片" data-fail="0" style="margin: 0px; padding: 0px; outline: 0px; vertical-align: bottom; overflow-wrap: break-word !important; height: auto !important; width: 100%; visibility: visible !important;box-sizing:border-box;max-width: 100% !important;" data-ratio="1" data-path="http://hbrbapp.hubeidaily.net/80715ac2-8d1c-4297-b8b7-63c2b72ee2a5" data-resourceid="13133793"/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: center;" align="center"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: center;" align="center"><img class="rich_pages wxw-img __bg_gif" data-backh="315" data-backw="560" data-galleryid="" data-imgfileid="504684016" data-type="gif" data-original-style="width: 100%;height: auto;" data-index="1" src="static/picture/94ee2362e559430eacf1841481bdcfa5.gif" _width="100%" __sec_open_place_holder__="true" data-order="2" alt="图片" data-fail="0" style="margin: 0px; padding: 0px; outline: 0px; vertical-align: bottom; overflow-wrap: break-word !important; height: auto !important; width: 100%; visibility: visible !important;box-sizing:border-box;max-width: 100% !important;" data-ratio="1" data-path="http://hbrbapp.hubeidaily.net/eb127eb2-63f8-42de-8dd5-50d204d282bb" data-resourceid="13133791"/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">屈原的家乡秭归，怎么能少得了诗词？舞台边的诗歌长廊流光绚烂，满天星瀑布灯、诗词树、波纹涌动的诗词题壁，漫步其中，仿佛穿越到异域时空，让游人和乐迷在流光溢彩的诗词灯下感受秭归独特的浪漫。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; color: rgb(255, 169, 0);"><strong style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">“大家共同狂欢，要的就是这种感觉。”</span></strong></span><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">看到预告，宜都市乐迷雷娜特地前来感受音乐节的魅力，她直呼现场的氛围令她震撼。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><section data-role="title" data-tools="135编辑器" data-id="137604" style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;" class="_135editor"><section style="margin: 10px auto; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; display: flex; justify-content: center;"><section style="margin: 0px -3px 0px 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; flex-shrink: 0; display: flex; align-items: center;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; overflow-wrap: break-word !important; width: 15px;box-sizing:border-box;"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 35.83 70" style="display: block;" xml:space="default"><g data-name="图层 2"><g data-name="图层 1"><path d="M0,35,35.83,0,13.93,35.19,35.83,70Z" style="fill:#3bb3e8;fill-rule:evenodd;"></path></g></g></svg></section></section><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; display: flex; justify-content: center;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; flex-shrink: 0; display: flex; align-items: center;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; overflow-wrap: break-word !important; width: 0px; height: 1px; border-right: 11px solid rgb(31, 92, 193); border-top: 16px solid transparent; border-bottom: 16px solid transparent; overflow: hidden;box-sizing:border-box;"><br style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"/></section></section><section style="margin: 0px; padding: 0px 10px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; background-color: rgb(31, 92, 193); line-height: 33px;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 16px; color: rgb(255, 255, 255); text-align: center;"><strong data-brushtype="text" style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">“零门槛”</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">一场全民音乐盛宴</span></p></strong></section></section><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; flex-shrink: 0; display: flex; align-items: center;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; overflow-wrap: break-word !important; width: 0px; height: 1px; border-left: 11px solid rgb(31, 92, 193); border-top: 16px solid transparent; border-bottom: 16px solid transparent; overflow: hidden;box-sizing:border-box;"><br style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"/></section></section></section><section style="margin: 0px 0px 0px -3px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; flex-shrink: 0; display: flex; align-items: center;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; overflow-wrap: break-word !important; width: 15px;box-sizing:border-box;"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 35.83 70" style="display: block;transform:  rotateY(180deg);-webkit-transform:  rotateY(180deg);-moz-transform:  rotateY(180deg);-o-transform:  rotateY(180deg);" xml:space="default"><g data-name="图层 2"><g data-name="图层 1"><path d="M0,35,35.83,0,13.93,35.19,35.83,70Z" style="fill:#3bb3e8;fill-rule:evenodd;"></path></g></g></svg></section></section></section></section><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">自2022年首届橙子音乐节“燃爆”木鱼岛天问公园以来，今年已是举办的第二届。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">在音乐会现场，观众或轻轻摇摆，或席地而坐。宜人的天气，放松的心情，动人的歌曲，伴随着荡漾的江水舒缓入耳，小孩子们则在草坪上嗨翻了天。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: center;" align="center"><img class="rich_pages wxw-img" data-backh="325" data-backw="578" data-galleryid="" data-imgfileid="504684011" data-s="300,640" data-type="jpeg" data-original-style="width: 100%;height: auto;" data-index="2" src="static/picture/ca56605f163641e8b2c1f63b9492146f.gif" _width="100%" __sec_open_place_holder__="true" alt="图片" data-fail="0" style="margin: 0px; padding: 0px; outline: 0px; vertical-align: bottom; overflow-wrap: break-word !important; height: auto !important; width: 100%; visibility: visible !important;box-sizing:border-box;max-width: 100% !important;" data-ratio="0.562962962962963" data-w="1080" data-path="http://hbrbapp.hubeidaily.net/267b1de7-f21e-48a7-8793-89df239db44c" data-resourceid="13133790"/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">不用预约，无需门票，在家门口“零门槛”就能免费享受这座城市赋予的公共文化资源，这让橙子音乐节更加接<strong style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px; color: rgb(211, 39, 16);">地气</span></strong>。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; color: rgb(255, 169, 0);"><strong style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">“以前，音乐节通常只能在一线大城市见到，而如今咱们秭归人在家门口就能参加了。”</span></strong></span><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">一大批秭归市民早早吃完晚饭，争相汇聚木鱼岛天问公园。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">现场，表演者与市民、游客频繁互动。<strong style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px; color: rgb(255, 169, 0);">“现场看就是不一样，歌手们的表现超有魅力！”</span></strong>秭归市民彭可难掩激动。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">橙子音乐节上还有本地原创作品，现场观众跟随歌声了解秭归鲜香的脐橙、巍峨的三峡大坝和行吟在江畔的三闾大夫……</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; color: rgb(255, 169, 0);"><strong style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">“接</span></strong></span><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; color: rgb(255, 169, 0);"><strong style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">地气</span></strong></span><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; color: rgb(255, 169, 0);"><strong style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">，我们都乐在其中，非常难得。”</span></strong></span><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">宜昌城区游客徐佳佳带着家人来到秭归，前来体验音乐节，一边观看、一边拿出手机拍照发朋友圈。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">而在音乐节的外围，集市也成了市民们的“心头好”。人们在脐橙深加工产品、中华红橙、茶叶、土蜂蜜等摊位前聚集，吃、喝、玩、赏，热闹非凡。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">橙子音乐节3天的连续演出，吸引3万余人次现场观看。抖音、视频号直播平台上，网友们热情点赞留言，反响热烈。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: center;" align="center"><img class="rich_pages wxw-img" data-backh="578" data-backw="578" data-galleryid="" data-imgfileid="504684014" data-s="300,640" data-type="jpeg" data-original-style="width: 100%;height: auto;" data-index="3" src="static/picture/fb5bad050e364b949a7d73513d8ffca0.gif" _width="100%" __sec_open_place_holder__="true" alt="图片" data-fail="0" style="margin: 0px; padding: 0px; outline: 0px; vertical-align: bottom; overflow-wrap: break-word !important; height: auto !important; width: 100%; visibility: visible !important;box-sizing:border-box;max-width: 100% !important;" data-ratio="1" data-path="http://hbrbapp.hubeidaily.net/d0520c45-d0d1-413e-a928-5345ab70992e" data-resourceid="13133788"/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;"></span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; color: rgb(255, 169, 0);"><strong style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">“音乐节的下沉受到观众的青睐，是市民精神文化需求的集中体现。”</span></strong></span><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">活动主办方秭归融媒文化传播有限责任公司负责人王雷蕾介绍，此次音乐节是提升城市内涵的生动实践，将致力于把橙子音乐节打造成秭归县全民文化品牌。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><section data-role="title" data-tools="135编辑器" data-id="137604" style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;" class="_135editor"><section style="margin: 10px auto; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; display: flex; justify-content: center;"><section style="margin: 0px -3px 0px 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; flex-shrink: 0; display: flex; align-items: center;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; overflow-wrap: break-word !important; width: 15px;box-sizing:border-box;"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 35.83 70" style="display: block;" xml:space="default"><g data-name="图层 2"><g data-name="图层 1"><path d="M0,35,35.83,0,13.93,35.19,35.83,70Z" style="fill:#3bb3e8;fill-rule:evenodd;"></path></g></g></svg></section></section><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; display: flex; justify-content: center;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; flex-shrink: 0; display: flex; align-items: center;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; overflow-wrap: break-word !important; width: 0px; height: 1px; border-right: 11px solid rgb(31, 92, 193); border-top: 16px solid transparent; border-bottom: 16px solid transparent; overflow: hidden;box-sizing:border-box;"><br style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"/></section></section><section style="margin: 0px; padding: 0px 10px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; background-color: rgb(31, 92, 193); line-height: 33px;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; color: rgb(255, 255, 255); text-align: center;"><strong data-brushtype="text" style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">以节为媒</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; font-size: 16px;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">古老之城再次“出圈”</span></p></strong></section></section><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; flex-shrink: 0; display: flex; align-items: center;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; overflow-wrap: break-word !important; width: 0px; height: 1px; border-left: 11px solid rgb(31, 92, 193); border-top: 16px solid transparent; border-bottom: 16px solid transparent; overflow: hidden;box-sizing:border-box;"><br style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"/></section></section></section><section style="margin: 0px 0px 0px -3px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; flex-shrink: 0; display: flex; align-items: center;"><section style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; overflow-wrap: break-word !important; width: 15px;box-sizing:border-box;"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 35.83 70" style="display: block;transform:  rotateY(180deg);-webkit-transform:  rotateY(180deg);-moz-transform:  rotateY(180deg);-o-transform:  rotateY(180deg);" xml:space="default"><g data-name="图层 2"><g data-name="图层 1"><path d="M0,35,35.83,0,13.93,35.19,35.83,70Z" style="fill:#3bb3e8;fill-rule:evenodd;"></path></g></g></svg></section></section></section></section><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">3月，是秭归“橙”熟季节。红肉、伦晚等多品种脐橙挂满枝头，传递出丰收的喜悦。而音乐节是自由与浪漫的代名词，这与屈原诗歌传递的精神追求不谋而合。<span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px; letter-spacing: 0.578px; text-wrap: wrap;">屈原文化、</span>秭归脐橙这些元素也成为这场音乐节接住“流量”的</span><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px; color: rgb(211, 39, 16);"><strong style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;">底气</strong></span><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; color: rgb(255, 169, 0);"><strong style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">“秭归是伟大爱国诗人屈原的故乡，秭归盛产脐橙，音乐节命名为‘橙子音乐节’，浪漫而又真实。”</span></strong></span><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">从荆州来秭归参加音乐节的张娜如此感慨。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">作为屈原出生地的秭归县，通过端午文化节、脐橙文化节、中国农民诗会、香草美人节等以节会友，向全国各地发出了一张张浪漫“邀请函”，让全国各地的朋友邂逅了一座城，也点燃了一座城。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><strong style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px; color: rgb(255, 169, 0);">“我们去屈原祠、芝茅路打卡，到水田坝摘橙子，吃脐橙宴，玩得很开心，下次还想来，更要介绍给朋友们来！”</span></strong><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">有很多像仙桃游客薛丽薇这样的乐迷，专程来此打卡、拍照、晒圈、美食、观景，还通过分享，让身边的朋友重新认识这座城市。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;"><img class="rich_pages wxw-img" data-backh="325" data-backw="578" data-galleryid="" data-imgfileid="504684013" data-s="300,640" data-type="jpeg" data-original-style="letter-spacing: 0.578px;text-align: center;width: 100%;height: auto;" data-index="4" src="static/picture/4868c3a1646e4891a3f790ea8b1f187c.gif" _width="100%" __sec_open_place_holder__="true" alt="图片" data-fail="0" style="margin: 0px; padding: 0px; outline: 0px; vertical-align: bottom; letter-spacing: 0.578px; text-align: center; overflow-wrap: break-word !important; height: auto !important; width: 100%; visibility: visible !important;box-sizing:border-box;max-width: 100% !important;" data-ratio="0.562962962962963" data-w="1080" data-path="http://hbrbapp.hubeidaily.net/8d5a4cd5-557e-49a4-9eba-4931c7e206fc" data-resourceid="13133786"/></span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">“为一场音乐节赴一座城”，是当下年轻人的旅游新选择。举办音乐节不仅是文化氛围的体现，更是城市对外展现形象的最好方式。薛丽薇还说：<span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px; color: rgb(255, 169, 0);"><strong style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;">“屈原的故乡是古老的，也是青春活力的。”</strong></span></span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">3天的音乐节，也带动了秭归周边酒店爆满，餐饮、购物等旅游消费业绩翻番。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; color: rgb(255, 169, 0);"><strong style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important;"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">“屈原文化、脐橙产业与音乐节的碰撞，对秭归来说，不只是贴上了潮流时尚的新标签，也是文娱产业、文旅产业与农业经济融合的跨界探索。”</span></strong></span><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">秭归县政府党组成员吴雄介绍，秭归县将积极引导支持市场化的文旅活动，持续扩大秭归城市声量。</span></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><br/></p><p style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; clear: both; min-height: 1em; text-align: justify; text-indent: 0em; line-height: 1.75em;" align="justify"><span style="margin: 0px; padding: 0px; outline: 0px; max-width: 100%; box-sizing: border-box !important; overflow-wrap: break-word !important; font-size: 18px;">橙子音乐节，是一次聚会，也是一种追求，相信秭归之美可以布播天下，引来四海知音。</span></p></section></section><section class="_135editor" data-role="paragraph"><p><br/></p></section></section>
+                    </div>
+                    <div class="content-edit">
+                        <span>责任编辑：秭归融媒体中心</span>
+                    </div>
+                    <div class="praise-collect-box">
+                        <div class="praise-box">
+                            <span class="praise">点赞 0</span>
+                        </div>
+                        <div class="collect-box">
+                            <span class="collect">收藏</span>
+                        </div>
+                    </div>
+                    <div class="share-box">
+                        <ul>
+                            <li class="share-wechat icon wechat" data-link="https://news.hubeidaily.net/mobile/mobile/c_2352653.html">
+                                <span class="icon wechat"></span>
+                                <span>微信</span>
+                            </li>
+                            <li class="share-weibo" title="分享到微博" data-link="https://news.hubeidaily.net/mobile/mobile/c_2352653.html" data-title="这场音乐节，出圈的“地气”和“底气”!" data-pic="eb127eb2-63f8-42de-8dd5-50d204d282bb">
+                                <span class="icon weibo"></span>
+                                <span>微博</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="related-news-title">
+                <div class="box-title">
+                    <span id="related-news-title-span"></span>
+                </div>
+            </div>
+            <div class="related-news-container">
+                <ul class="related-news-list clearfix" id="related-news-list">
+                </ul>
+            </div>
+            <div class="news-comments">
+                <div class="news-comment-new">
+                    <textarea id="commText" class="comment-text" autoHeight="true" placeholder="我要跟帖..."></textarea>
+                    <div class="text-right">
+                        <span class="word-tip">已输入<span id="wordNum">0</span>个字</span>
+                    </div>
+                    <div class="text-right">
+                        <button class="submit-btn" id="submit-btn">发表</button>
+                    </div>
+                </div>
+                <div class="box-title">
+                    <span>全部评论</span>
+                </div>
+                <div class="news-comment-list" id="newsCommentList">
+                    <ul class="clearfix" v-if="!!commentList && commentList.length > 0">
+                        <li class="comment-item" v-for="item in commentList">
+                            <div class="portrait">
+                                <div class="img">
+                                    <img :src="static/picture/item.memberimg">
+                                </div>
+                                <img :class="'pos pos'+item.identityInfo.topLeftResourceId" :src="static/picture/item.identityinfo.bottomresourceurl" v-if="!!item.identityInfo && JSON.stringify(item.identityInfo) != '{}'"/>
+                            </div>
+                            <div class="text">
+                                <div class="clearfix">
+                                    <div class="name" v-text="item.memberName"></div>
+                                    <div class="create-time" v-text="item.createdTime"></div>
+                                    <div class="praise-box">
+                                        <span class="praise" v-text="item.topCount" @click="onClickCommentPraise($event, item)"></span>
+                                    </div>
+                                    <div class="reply" @click="showReplay(item)">回复</div>
+                                </div>
+                                <div class="comm-text" v-html="item.comment"></div>
+                                <div class="comm-replay" v-if="item.isReplay">
+                                    <textarea :id="'commText'+item.id" class="comment-text" placeholder="我要回复..."></textarea>
+                                    <div class="text-right">
+                                        <button class="submit-btn" @click="submitReplay(item)">发表</button>
+                                    </div>
+                                </div>
+                                <div class="sub_comm" v-if="item.replyCount > 0">
+                                    <ul class="sub_comm_list">
+                                        <li class="sub_comm_item" v-for="subItem in item.childArray" :key="subItem.id">
+                                            <div class="clearfix">
+                                                <span class="name" v-text="subItem.memberName"></span>
+                                                <span class="create-time" v-text="subItem.createdTime"></span>
+                                                <div class="praise-box">
+                                                    <span class="praise" v-text="subItem.topCount" @click="onClickCommentPraise($event, subItem)"></span>
+                                                </div>
+                                            </div>
+                                            <div class="comm-text" v-html="subItem.comment"></div>
+                                        </li>
+                                        <li class="sub_comm_item" v-if="item.replyCount > 2 && item.childArray.length <= 2">
+                                            <span class="sub_comm_more" @click="onClickCommentMoreReply(item)" v-if="item.replyCount <= 10">查看全部{{ item.replyCount }}条回复></span>
+                                            <span class="sub_comm_more" @click="onClickCommentMoreReply(item)" v-else>查看更多回复></span>
+                                        </li>
+                                        <li class="sub_comm_item" v-else-if="item.replyCount > 2 && item.childArray.length > 2 && item.replyCount > item.childArray.length">
+                                            <span class="sub_comm_more" @click="onClickCommentMoreReply(item)">查看更多回复></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="load-more-box">
+                        <span class="load-more" v-if="!commentLoadOver" @click="loadMoreComment">查看更多评论<span class="down"></span></span>
+                        <span v-else>没有更多评论了</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-right">
+            <div class="epa-box">
+                <div class="box-title">
+                    <span>电子报</span>
+                </div>
+                <div class="epa-img">
+                    <a href="http://hbrb.cnhubei.com/cache/paper_hbrb.aspx" id="newsPic" target="_blank"></a>
+                </div>
+                <div class="epa-tabs">
+                    <ul class="clearfix">
+                        <li class="tab-item on">湖北日报</li>
+                        <li class="tab-item len">楚天都市报</li>
+                        <li class="tab-item">农村新报</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="activity-report-box">
+                <div class="box-title">
+                    <span>政情</span>
+                </div>
+                <div class="leader-list">
+                    <ul class="clearfix" id="leader-list">
+                    </ul>
+                </div>
+            </div>
+            <div class="recommend-box">
+                <div class="box-title">
+                    <span>精彩推荐</span>
+                </div>
+                <div class="recommend-list">
+                    <ul id="recommend-list">
+                    </ul>
+                </div>
+            </div>
+            <div class="qrcode-box">
+                <ul class="qrcode-list">
+                    <li class="qrcode-item">
+                        <img src="static/picture/qrcode_app.jpg">
+                        <span>湖北日报客户端</span>
+                    </li>
+                    <li class="qrcode-item">
+                        <img src="static/picture/qrcode_wechat.jpg">
+                        <span>湖北日报官方微信</span>
+                    </li>
+                    <li class="qrcode-item">
+                        <img src="static/picture/qrcode_weibo.png">
+                        <span>湖北日报官方微博</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="foot-link">
+        <ul class="link-list clearfix">
+            <li class="link-item"><a href="https://www.hubeidaily.net/GroupSurvey.html" target="_blank">湖北日报集团简介</a></li>
+            <li class="link-item"><a href="https://epaper.hubeidaily.net"  target="_blank">湖北日报数字报</a></li>
+            <li class="link-item"><a href="http://www.hubeidaily.net/PublicNotice/"  target="_blank">公示公告</a></li>
+            <li class="link-item"><a href="/pc/legalStatement.html">法律声明</a></li>
+            <li class="link-item"><a href="/pc/contactUs.html">联系我们</a></li>
+        </ul>
+    </div>
+    <div class="foot-cp clearfix">
+        <div class="copyright">
+            <span>Copyright © 湖北日报 [鄂ICP备12007957-2号]</span>
+            <span>|</span>
+            <span>湖北日报传媒集团出品</span>
+        </div>
+        <div class="iconlist">
+            <a href="javascript:;"><img src="static/picture/ft_icon1.png"></a>
+            <a href="javascript:;"><img src="static/picture/ft_icon2.png"></a>
+            <a href="javascript:;"><img src="static/picture/ft_icon3.png"></a>
+            <a href="javascript:;"><img src="static/picture/ft_icon4.png"></a>
+        </div>
+    </div>
+</div>
+
+<script src="static/js/zdialog.js"></script>
+<script type="text/javascript" src="static/js/md5.min.js"></script>
+<script type="text/javascript" src="static/js/common.js"></script>
+<script type="text/javascript" src="static/js/header.js"></script>
+<script type="text/javascript" src="static/js/right.js"></script>
+<script type="text/javascript" src="static/js/hdbdetail.js"></script>
+<script type="text/javascript" src="static/js/statistics_tj.js"></script>
+<script type="text/javascript">document.write(unescape("%3Cspan style='display: none !important' id='cnzz_stat_icon_1281085254'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1281085254' type='text/javascript'%3E%3C/script%3E"));</script>
+<script type="text/javascript">
+    $("#commText").keyup(function(){
+        var n = $(this).val().length;
+        $("#wordNum").text(n);
+    });
+
+
+    $(function(){
+        var localUrl = window.location.href;
+        var url = localUrl;
+        $('.share-weibo').data('link',url);
+        $('.share-wechat').data('link',url);
+        $.fn.autoHeight = function(){
+            function autoHeight(elem){
+                elem.style.height = 'auto';
+                elem.scrollTop = 0; //防抖动
+                elem.style.height = elem.scrollHeight + 'px';
+            }
+            this.each(function(){
+                autoHeight(this);
+                $(this).on('keyup', function(){
+                    autoHeight(this);
+                });
+            });
+        }
+        $('textarea[autoHeight]').autoHeight();
+
+    })
+</script>
+</body>
+</html>
